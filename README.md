@@ -1,50 +1,22 @@
-
 Gheorghe Marius Razvan 324CA
 
-Tema 2 Proiectarea Algoritmilor
+Project 2 - Algorithm Design
 
-Problema 1 ----Numarare-----
+Problem 1 ----Counting Paths----
+I read the input data, which consists of two graphs. I apply a topological sorting algorithm to the first graph to ensure that when accessing a node u, I have already calculated all paths leading to u from its predecessors. This is achieved through topological sorting. I use Kahn's algorithm for topological sorting, where the in-degree of nodes is checked, and nodes with an in-degree of 0 (which are not preceded by any other nodes) are added to the queue first.
 
-Citesc datele de intrare,adica cele 2 grafuri.
-Aplic algoritmul de sortare topologica asupra primului graf
-pentru a mi asigura ca atunci cand accesez un nod u sa am calculate
-caile prin care se ajunge la u adica de la toti predecesorii sai,ceea ce
-va face sortarea topologica.Aplic sortarea topologica algoritmul lui Kahn
-unde mai intai se verifica gradul intern al nodurilor iar in coada se pun 
-prima oara cel cu gradul 0 care nu mai sunt precedate de alte noduri.
-In functia compute_paths() vectorul dp[i] reprezinta caile de la sursa la i.
-Pentru fiecare nod din sortarea topologica parcurg vecinii sai pentru graful 1
-si verific daca aceleasi arce se regasesc si in graful 2,daca se gasesc
-adaug la neighbor numarul de cai care ajung la node pentru ca automat vor
-ajunge si la neighbor.In final dp[n] contine numarul total de cai de la sursa
-la destinatie.
-Complexitatea la algoritmul lui Kahn este O(n+m) iar la compute_paths pentru
-fiecare nod din sortarea topologica actualizam valorile pentru vecinii sai,
-deci complexitatea este O(n+m).
+In the compute_paths() function, the vector dp[i] represents the paths from the source to node i. For each node in topological order, I iterate through its neighbors in the first graph and check if the same edges exist in the second graph. If they do, I add the number of paths reaching node to neighbor, as these paths will also reach neighbor. In the end, dp[n] contains the total number of paths from the source to the destination.
 
-Problema 2 ----Trenuri----
-La problema 2 stochez nodurile asa cum sunt citite sub forma de string,
-procedez ca la problema anterioara si sortez topologic graful.
-In functia get_result vectorul dist reprezinta distanta maxima de la nodul 
-start la orice nod.Iterez prin fiecare nod din sortarea topologica,apoi iterez
-prin vecinii fiecarui nod si actualizez distanta maxima la fiecare vecin
-daca cea anterioara era mai mica si altfel imi va da distanta maxima de la
-start la end.
-Complexitatea programului este O(n+m) atat pentru sortarea topologica cat si
-pentru calculul maxim al oraselor.
+The complexity of Kahn's algorithm is O(n+m), and for compute_paths, the complexity is also O(n+m) as we update each node's neighbors in topological order.
 
-Problema3 ----Drumuri----
+Problem 2 ----Trains----
+For Problem 2, I store nodes as strings in the order they are read. Similar to Problem 1, I sort the graph topologically. In the get_result function, the dist vector represents the maximum distance from the start node to any other node. I iterate through each node in topological order, then iterate through each node's neighbors to update the maximum distance for each neighbor if the previous distance was smaller. This ultimately provides the maximum distance from start to end.
 
-Aplic algoritmul lui Dijkstra pentru a afla distantele minime.
-Calculez distantele minime de la x la toate nodurile grafului si de 
-la y la fel folosind dijkstra si de la z la graful inversat(transpus).
-Trec prin toate nodurile sa verific daca sunt parte din drumurile minime
-de la x la z si de la y la z de aceea pentrun fiecare nod i
-existanda un drumu de la x la z care trece prin i si de la y la z
-care trece prin i costul fiind dist_x[i]+dist_y[i]+dist_z[i].
-Plecand in acelasi timp din z catre x si y se vor intalni
-intr un punct comun,intermediar adica in punctul i iar din i
-pleaca inspre x si y si de aici => dist_x[i]+dist_y[i]+dist_z[i].
-Complexitatea este O((n+m)*logn) deoarece acel logn vine din utilizarea
-cozii de prioritate din operatiile de inserare iar n+m
-pentru ca parcurgem toate nodurile si toate muchiile.
+The program's complexity is O(n+m) for both topological sorting and for calculating the maximum distances to cities.
+
+Problem 3 ----Paths----
+I apply Dijkstra's algorithm to find the minimum distances. I calculate the minimum distances from x to all nodes, from y to all nodes using Dijkstra again, and from z to all nodes in the reversed (transposed) graph.
+
+I check each node to verify if it is part of the shortest paths from x to z and from y to z. For each node i, if there exists a path from x to z passing through i and from y to z passing through i, the cost is dist_x[i] + dist_y[i] + dist_z[i]. By starting from z towards x and y, the paths will intersect at a common point, i, which serves as the intermediary. Thus, the total cost becomes dist_x[i] + dist_y[i] + dist_z[i].
+
+The complexity is O((n+m)⋅logn) due to the log n factor from using a priority queue for insertion operations, and n+m because we traverse all nodes and edges.
