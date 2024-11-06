@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Gheorghe Marius Razvan 324CA
 
 Tema 2 Proiectarea Algoritmilor
@@ -47,3 +48,7 @@ pleaca inspre x si y si de aici => dist_x[i]+dist_y[i]+dist_z[i].
 Complexitatea este O((n+m)*logn) deoarece acel logn vine din utilizarea
 cozii de prioritate din operatiile de inserare iar n+m
 pentru ca parcurgem toate nodurile si toate muchiile.
+=======
+# Designing_algorithms
+Algorithms with satisfactory complexity
+>>>>>>> 4341b0c4a1c1879f4aa0084bc866e2c65fa69407
